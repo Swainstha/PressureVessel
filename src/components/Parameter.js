@@ -2,28 +2,48 @@ import React,{Component} from 'react';
 import Aux from '../hoc/Aux/Aux';
 import Input from './UI/Input/Input';
 import Button from '../components/UI/Button/Button';
-
+import classes from './Parameter.css';
 const inputVar = [
-    {label:'Height', type:'height'},
-    {label:'Diameter', type:'diameter'},
-    {label:'Pressure', type:'pressure'}
+    {label:'Height', type:'h'},
+    {label:'Diameter', type:'d'},
+    {label:'Pressure', type:'p'}
 ]
 
-const Parameter = (props) => (
+class Parameter extends Component {
 
-    <div>    
-    {inputVar.map(invar => (
-        <Input
-            key={invar.label}
-            label={invar.label}
-            value={invar.value}
-            submit = {() => props.valueSubmit(invar.label)} />
-    ))
-
+    state = {
+        params: {
+            h: 0,
+            d: 0,
+            p: 0
+        },
     }
-    <Button btnType="Success" clicked={props.submitParams}>SUBMIT</Button>
-    <Button btnType="Danger" clicked={props.cancelParams}>CANCEL</Button>
-    </div>
-);
+    inputChangeHandler = (event) => {
+        const updatedParams = {
+            ...this.state.params
+        };
+        updatedParams[event.target.name] = event.target.value;
+        this.setState({params:updatedParams});
+    }
+
+    render() {
+        return(
+            <Aux>
+            <form>  
+            {inputVar.map(invar => (
+                <div key={invar.label}>
+                    <label className={classes.Label}>{invar.label}</label>
+                    <input name={invar.type} type="number" placeholder="0.0" className={classes.InputElement}
+                        onChange= {this.inputChangeHandler} />
+                 </div>
+            ))
+            }
+            </form>
+            <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>SUBMIT</Button>
+            <Button btnType="Danger" clicked={this.props.cancelParams}>CANCEL</Button>
+            </Aux>
+        );
+    }
+}
 
 export default Parameter;
