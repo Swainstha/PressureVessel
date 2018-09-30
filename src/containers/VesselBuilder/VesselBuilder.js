@@ -6,6 +6,7 @@ import Parameter from '../../components/Parameter';
 import Parameter1 from '../../components/UI/Parameter/Parameter1/Parameter1';
 import Parameter2 from '../../components/UI/Parameter/Parameter2/Paramater2';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 class VesselBuilder extends Component {
     state = {
         showParam : false,
@@ -77,6 +78,7 @@ class VesselBuilder extends Component {
                         min2 = {0.3625}
                         />
                 </Modal>
+                <Toolbar />
                 <ThreeScene length={this.state.params1.h}/>
                 <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button>
 
