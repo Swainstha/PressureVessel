@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../../../hoc/Aux/Aux';
 import Button from '../../Button/Button';
 import classes from './Parameter1.css';
+import Select from 'react-select';
+// import Select from '../../Select/Select';
 const inputVar = [
     { label: 'Material', type: 'dropdown', id: 1 },
     { label: 'Internal Pressure', type: 'number', id: 2 },
@@ -16,7 +18,7 @@ class Parameter1 extends Component {
 
     state = {
         params: {
-            material: 0,
+            material: "",
             ip: 0,
             temp1: 0,
             ep: 0,
@@ -28,72 +30,123 @@ class Parameter1 extends Component {
         },
         showNext: false
     }
-    materialHandler = (event) => {
+
+    inputHandler = (event) => {
+        console.log(event);
         const updatedParams = {
             ...this.state.params
         };
-        updatedParams[event.target.name] = event.target.value;
+        if(event.target.name === 'ih') {
+            const val = event.target.value;
+            if(val === 'on') {
+                updatedParams[event.target.name] = true;
+            } else {
+                updatedParams[event.target.name] = false;
+            }
+        } else {
+            updatedParams[event.target.name] = event.target.value;
+        }
+        this.setState({ params: updatedParams });
+    }
+
+    materialHandler = (event) => {
+        console.log(event);
+        const updatedParams = {
+            ...this.state.params
+        };
+        updatedParams['material'] = event.value;
+        console.log(updatedParams);
         this.setState({ params: updatedParams });
     }
 
     render() {
+
+        const opts = [
+            { value: 'SA-516 60', label: 'SA-516 60' },
+            { value: 'SA-516 70', label: 'SA-516 70' },
+            { value: 'SA-524 II Smis Pipe', label: 'SA-524 II Smis Pipe' },
+            { value: 'SA-53 EA Wld Pipe', label: 'SA-53 EA Wld Pipe' }
+          ];
+
+          const customStyles = {
+            option: (base, state) => ({
+              ...base,
+              borderBottom: '1px dotted pink',
+              color: state.isFullscreen ? 'red' : 'blue',
+              padding: 20,
+              width: 400
+            }),
+            control: () => ({
+              // none of react-selects styles are passed to <View />
+              width: 200,
+            })
+          }
 
         let form = null;
         if (this.props.show) {
             form = (
                 <div>
                     <form>
-                        <div className={classes.Input}>
+
+                        <div className={classes.Input} >
+                            <label className={classes.Label}>Material</label>
+                            <Select  className={classes.Input2} options={opts}
+                                onchange={this.inputHandler} />
+                            
+                        </div>
+                        <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>Internal Pressure</label>
                                 <input name="ip" type="text" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>@</label>
                                 <input name="temp1" type="number" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                         </div>
 
-                        <div className={classes.Input}>
+                        <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>External Pressure</label>
                                 <input name="op" type="text" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>@</label>
                                 <input name="temp2" type="number" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                         </div>
 
-                        <div className={classes.Input}>
-                            <label className={classes.Label1}>Corrosion</label>
+                        <div className={classes.Input1}>
                             <div className={classes.Input}>
+                            <label className={classes.Label1}>Corrosion</label>
                                 <label className={classes.Label}>Internal</label>
                                 <input name="ic" type="text" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>External</label>
                                 <input name="ec" type="number" placeholder="0.0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                    onChange={this.inputHandler} />
                             </div>
                         </div>
 
-                        <div className={classes.Input}>
+                        <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>Internal Head</label>
-                                <input name="ih" type="checkbox" placeholder="0" className={classes.InputElement}
-                                    onChange={this.materialHandler} />
+                                <input name="ih" type="checkbox" placeholder="0" className={classes.checkmark}
+                                    onChange={this.inputHandler} />
                             </div>
                         </div>
 
                     </form>
-                    <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>NEXT</Button>
-                    <Button btnType="Danger" clicked={this.props.cancelParams}>CANCEL</Button>
+                    <div>
+                    <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>Next</Button>
+                    <Button btnType="Danger" clicked={this.props.cancelParams}>Cancel</Button>
+                    </div>
                 </div>
             );
 

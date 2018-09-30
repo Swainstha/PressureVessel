@@ -11,7 +11,7 @@ class VesselBuilder extends Component {
         showParam : false,
         showParam1: true,
         params1: {
-            m: 0,
+            material: "",
             ip: 0,
             temp1:0,
             ep: 0,
@@ -52,6 +52,10 @@ class VesselBuilder extends Component {
     cancelParamsHandler = () => {
         this.setState({showParam: false});
     }
+
+    previousParamsHandler = () => {
+        this.setState({showParam1: true});
+    }
     
     render() {
 
@@ -68,6 +72,9 @@ class VesselBuilder extends Component {
                         show = {!this.state.showParam1} 
                         submitParams = {this.submitParamsHandler2}
                         cancelParams = {this.cancelParamsHandler}
+                        previousParams = {this.previousParamsHandler}
+                        min1 = {0.3625}
+                        min2 = {0.3625}
                         />
                 </Modal>
                 <ThreeScene length={this.state.params1.h}/>

@@ -7,6 +7,15 @@
     align-items: center;
 }
 
+.Input1 {
+    display: flex;
+}
+
+.Input2 {
+    margin-left: 10px;
+    width: 300px;
+}
+
 .Label {
     font-weight: bold;
     display: block;
@@ -16,9 +25,15 @@
 .Label1 {
     font-weight: bold;
     display: block;
+    margin-right: 15px;
     margin-top: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
+}
+
+.Label2 {
+    font-weight: bold;
+    display: block;
+    margin-right: 15px;
+    margin-top: 5px;
 }
 
 .InputElement {
@@ -32,7 +47,23 @@
     /* width: 100%; */
 }
 
+.select {
+    background-color: white;
+    font: inherit;
+    padding: 6px 10px;
+    display: block;
+    margin-left: 10px;
+}
+
 .InputElement:focus {
     outline: none;
     background-color: #ccc;
 }
+
+.checkmark {
+    margin-left: 10px;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }

@@ -14,7 +14,7 @@
 
 @media (min-width: 1000px) {
     .Modal {
-        width: 800px;
+        width: 900px;
         left: calc(50% - 400px);
     }
 }

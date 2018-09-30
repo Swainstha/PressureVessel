@@ -48,6 +48,7 @@ class Parameter1 extends Component {
                             <label className={classes.Label}>Minimum Head Thickness</label>
                             <input name="temp1" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
+                            <label className={classes.Label1}>{this.props.min1} min</label>
                         </div>
 
                         <div className={classes.Input}>
@@ -59,6 +60,7 @@ class Parameter1 extends Component {
                             <label className={classes.Label}>Nominal Str Range Thickness</label>
                             <input name="temp2" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
+                            <label className={classes.Label1}>{this.props.min2} min</label>
                         </div>
 
                         <div className={classes.Input}>
@@ -68,8 +70,10 @@ class Parameter1 extends Component {
                         </div>
 
                     </form>
-                    <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>NEXT</Button>
-                    <Button btnType="Danger" clicked={this.props.cancelParams}>CANCEL</Button>
+                    <Button btnType="Success" clicked={this.props.previousParams}>Previous</Button>
+                    <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>Submit</Button>
+                    <Button btnType="Danger" clicked={this.props.cancelParams}>Cancel</Button>
+                    
                 </div>
             );
         } else {
