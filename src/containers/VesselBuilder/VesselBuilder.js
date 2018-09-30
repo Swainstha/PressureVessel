@@ -3,14 +3,31 @@ import Aux from '../../hoc/Aux/Aux';
 import Modal from '../../components/UI/Modal/Modal';
 import Button from '../../components/UI/Button/Button';
 import Parameter from '../../components/Parameter';
+import Parameter1 from '../../components/UI/Parameter/Parameter1/Parameter1';
+import Parameter2 from '../../components/UI/Parameter/Parameter2/Paramater2';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 class VesselBuilder extends Component {
     state = {
         showParam : false,
-        params: {
+        showParam1: true,
+        params1: {
+            m: 0,
+            ip: 0,
+            temp1:0,
+            ep: 0,
+            temp2:0,
             h: 0,
-            d: 0,
-            p: 0
+            ih: false,
+            ci: 0,
+            co: 0
+            
+        },
+        params2: {
+            hd: 0,
+            mht: 0,
+            sfl: 0,
+            nsrt: 0,
+            hr: 0,
         }
     }
 
@@ -18,9 +35,17 @@ class VesselBuilder extends Component {
         this.setState({showParam: true});
     }
 
-    submitParamsHandler = (event) => {
+    submitParamsHandler1 = (event) => {
+        //this.setState({showParam: false});
+        this.setState({showParam1: false});
+        this.setState({params1:event});
+        console.log(event)
+    }
+
+    submitParamsHandler2 = (event) => {
         this.setState({showParam: false});
-        this.setState({params:event});
+        this.setState({showParam1: true});
+        this.setState({params2:event});
         console.log(event)
     }
 
@@ -34,12 +59,18 @@ class VesselBuilder extends Component {
         return(
             <Aux>
                 <Modal show={this.state.showParam}>
-                    <Parameter 
-                        submitParams = {this.submitParamsHandler}
+                    <Parameter1
+                        show = {this.state.showParam1} 
+                        submitParams = {this.submitParamsHandler1}
+                        cancelParams = {this.cancelParamsHandler}
+                        />
+                    <Parameter2 
+                        show = {!this.state.showParam1} 
+                        submitParams = {this.submitParamsHandler2}
                         cancelParams = {this.cancelParamsHandler}
                         />
                 </Modal>
-                <ThreeScene length={this.state.params.h}/>
+                <ThreeScene length={this.state.params1.h}/>
                 <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button>
 
             </Aux>

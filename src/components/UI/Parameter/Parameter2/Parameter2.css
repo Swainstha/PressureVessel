@@ -2,14 +2,23 @@
     /* width: 100%; */
     padding: 10px;
     box-sizing: border-box;
-    margin-right: 20px;
-    display: inline;
+    /* margin-right: 10px; */
+    display: flex;
+    align-items: center;
 }
 
 .Label {
     font-weight: bold;
     display: block;
-    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.Label1 {
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .InputElement {
@@ -19,7 +28,7 @@
     font: inherit;
     padding: 6px 10px;
     display: block;
-    margin: 5px;
+    margin-left: 10px;
     /* width: 100%; */
 }
 
