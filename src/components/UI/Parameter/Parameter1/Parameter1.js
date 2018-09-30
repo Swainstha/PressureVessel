@@ -23,7 +23,6 @@ class Parameter1 extends Component {
             temp1: 0,
             ep: 0,
             temp2: 0,
-            height: 0,
             ih: false,
             ci: 0,
             co: 0
@@ -68,19 +67,6 @@ class Parameter1 extends Component {
             { value: 'SA-53 EA Wld Pipe', label: 'SA-53 EA Wld Pipe' }
           ];
 
-          const customStyles = {
-            option: (base, state) => ({
-              ...base,
-              borderBottom: '1px dotted pink',
-              color: state.isFullscreen ? 'red' : 'blue',
-              padding: 20,
-              width: 400
-            }),
-            control: () => ({
-              // none of react-selects styles are passed to <View />
-              width: 200,
-            })
-          }
 
         let form = null;
         if (this.props.show) {

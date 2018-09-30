@@ -17,7 +17,6 @@ class VesselBuilder extends Component {
             temp1:0,
             ep: 0,
             temp2:0,
-            h: 0,
             ih: false,
             ci: 0,
             co: 0
@@ -79,7 +78,7 @@ class VesselBuilder extends Component {
                         />
                 </Modal>
                 <Toolbar />
-                <ThreeScene length={this.state.params1.h}/>
+                <ThreeScene length={this.state.params1.ip}/>
                 <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button>
 
             </Aux>

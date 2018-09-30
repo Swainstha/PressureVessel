@@ -6,9 +6,9 @@ class ThreeScene extends Component {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
 
-    this.geometry = null;
-    this.material = null;
-    this.cylinder = null;
+    // this.geometry = null;
+    // this.material = null;
+    // this.cylinder = null;
     //ADD SCENE
     this.scene = new THREE.Scene()
 
@@ -23,14 +23,33 @@ class ThreeScene extends Component {
 
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
-    this.renderer.setClearColor('#fff')
+    this.renderer.setClearColor('#ddd')
     this.renderer.setSize(width, height)
     this.mount.appendChild(this.renderer.domElement)
 
-    this.geometry = new THREE.CylinderGeometry(2, 2, 2, 2)
-    this.material = new THREE.MeshBasicMaterial({ color: '#ffff00' })
-    this.cylinder = new THREE.Mesh(this.geometry, this.material)
-    this.scene.add(this.cylinder)
+    //ADD LIGHT
+    this.light = new THREE.AmbientLight( 0x404040 ); // soft white light
+    this.scene.add( this.light );
+
+    this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    this.directionalLight.position.set( 0, -70, 100 ).normalize()
+    
+    //ADD GEOMETRY
+    this.geometry = new THREE.SphereGeometry( 1, 64, 64, 0, 6.3, 0, 1.5 );
+    this.material = new THREE.MeshBasicMaterial( {color: '#999'} );
+    this.sphere = new THREE.Mesh( this.geometry, this.material );
+    this.sphere.translateY(0.93);
+    this.scene.add(this.sphere)
+
+    // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    // this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    // this.cube = new THREE.Mesh( this.geometry, this.material );
+    // this.scene.add( this.cube );  
+
+    this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
+      this.material = new THREE.MeshBasicMaterial({ color: '#777' })
+      this.cylinder = new THREE.Mesh(this.geometry, this.material)
+      this.scene.add(this.cylinder)
     this.start()
 
     console.log("ComponentDidMount ThreeScene");
@@ -46,12 +65,12 @@ class ThreeScene extends Component {
     const l = nextProps.length;
     if (l > 0 && nextProps.length !== this.props.length) {
 
-      //this.stop()
-      this.scene.remove(this.cylinder)
-      this.geometry = new THREE.CylinderGeometry(2, 2, 2, 2)
-      this.material = new THREE.MeshBasicMaterial({ color: '#ffff00' })
-      this.cylinder = new THREE.Mesh(this.geometry, this.material)
-      this.scene.add(this.cylinder)
+      this.stop()
+      //this.scene.remove(this.cylinder)
+      // this.geometry = new THREE.CylinderGeometry(2, 2, 2, 2)
+      // this.material = new THREE.MeshBasicMaterial({ color: '#ffff00' })
+      // this.cylinder = new THREE.Mesh(this.geometry, this.material)
+      // this.scene.add(this.cylinder)
       this.start()
     }
   }
@@ -69,10 +88,11 @@ class ThreeScene extends Component {
     if (this.cube != null) {
       this.cube.rotation.x += 0.01
       this.cube.rotation.y += 0.01
-
-      this.renderScene()
-      this.frameId = window.requestAnimationFrame(this.animate)
     }
+    // this.cylinder.rotation.x += 0.01
+    // this.cylinder.rotation.y += 0.01
+    this.renderScene()
+    this.frameId = window.requestAnimationFrame(this.animate)
   }
 
   renderScene = () => {

@@ -12,9 +12,9 @@
     transition: all 0.3s ease-out;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 800px) {
     .Modal {
-        width: 900px;
+        width: 800px;
         left: calc(50% - 400px);
     }
 }
