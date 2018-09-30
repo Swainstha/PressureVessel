@@ -3,7 +3,7 @@ import Aux from '../../hoc/Aux/Aux';
 import Modal from '../../components/UI/Modal/Modal';
 import Button from '../../components/UI/Button/Button';
 import Parameter from '../../components/Parameter';
-import Cylinder from '../../components/ThreeComponents/Cylinder';
+import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 class VesselBuilder extends Component {
     state = {
         showParam : false,
@@ -30,6 +30,7 @@ class VesselBuilder extends Component {
     
     render() {
 
+        console.log("Rerendered");
         return(
             <Aux>
                 <Modal show={this.state.showParam}>
@@ -38,6 +39,7 @@ class VesselBuilder extends Component {
                         cancelParams = {this.cancelParamsHandler}
                         />
                 </Modal>
+                <ThreeScene length={this.state.params.h}/>
                 <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button>
 
             </Aux>
