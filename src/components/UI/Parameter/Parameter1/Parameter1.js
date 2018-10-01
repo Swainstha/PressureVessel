@@ -83,7 +83,7 @@ class Parameter1 extends Component {
                         <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>Internal Pressure</label>
-                                <input name="ip" type="text" placeholder="0.0" className={classes.InputElement}
+                                <input name="ip" type="number" placeholder="0.0" className={classes.InputElement}
                                     onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
@@ -96,7 +96,7 @@ class Parameter1 extends Component {
                         <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>External Pressure</label>
-                                <input name="ep" type="text" placeholder="0.0" className={classes.InputElement}
+                                <input name="ep" type="number" placeholder="0.0" className={classes.InputElement}
                                     onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
@@ -110,7 +110,7 @@ class Parameter1 extends Component {
                             <div className={classes.Input}>
                             <label className={classes.Label1}>Corrosion</label>
                                 <label className={classes.Label}>Internal</label>
-                                <input name="ic" type="text" placeholder="0.0" className={classes.InputElement}
+                                <input name="ic" type="number" placeholder="0.0" className={classes.InputElement}
                                     onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>

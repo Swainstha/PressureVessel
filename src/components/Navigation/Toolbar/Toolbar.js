@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './Toolbar.css';
-import NavigationItems from '../NavigationItems/NavigationItems';
+import cls from '../NavigationItems/NavigationItems.css';
+import NavigationItem from '../NavigationItems/NavigationItem/NavigationItem';
 import Dropdown from '../DropDown/Dropdown';
 class Toolbar extends Component {
 
@@ -34,21 +35,27 @@ class Toolbar extends Component {
         let geometry = [...this.state.geometry]
         geometry.forEach(item => item.selected = false);
         geometry[id].selected = true;
-        this.setState({geometry:geometry},
+        this.setState({ geometry: geometry },
             this.props.resetThenSet(id))
         // console.log(id);
     }
     render() {
         return (
             <header className={classes.Toolbar}>
-                <NavigationItems/>
-                {/* <div className="wrapper"> */}
-                    <Dropdown
-                        title="Action"
-                        list={this.state.geometry}
-                        resetThenSet={this.resetThenSet}
-                    />
-                
+                {/* <NavigationItems/> */}
+                <ul className={cls.NavigationItems}>
+                    <NavigationItem >File</NavigationItem>
+                    <NavigationItem>Component</NavigationItem>
+                    <NavigationItem>Nozzle</NavigationItem>
+
+                    <div className="wrapper">
+                        <Dropdown
+                            title="Action"
+                            list={this.state.geometry}
+                            resetThenSet={this.resetThenSet}
+                        />
+                    </div>
+                </ul>
             </header>
         );
     }

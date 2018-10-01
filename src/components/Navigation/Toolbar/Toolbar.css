@@ -24,11 +24,14 @@
 }
 
 .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
+    /* display: -webkit-box;
+    display: -ms-flexbox; */
     display: flex;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
+    margin-left: 10px;
+    /* margin-top: 20px;  */
     width: 460px;
+    font-size: 1.6rem;
   }

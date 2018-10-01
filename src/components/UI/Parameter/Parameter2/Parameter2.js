@@ -41,7 +41,7 @@ class Parameter1 extends Component {
                     <form>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Diameter</label>
-                            <input name="hd" type="text" placeholder="0.0" className={classes.InputElement}
+                            <input name="hd" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
                         <div className={classes.Input}>
@@ -53,7 +53,7 @@ class Parameter1 extends Component {
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Straight Range Length</label>
-                            <input name="sfl" type="text" placeholder="0.0" className={classes.InputElement}
+                            <input name="sfl" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
                         <div className={classes.Input}>
@@ -65,7 +65,7 @@ class Parameter1 extends Component {
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Ratio</label>
-                            <input name="hr" type="text" placeholder="0.0" className={classes.InputElement}
+                            <input name="hr" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
 
