@@ -46,26 +46,26 @@ class Parameter1 extends Component {
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Minimum Head Thickness</label>
-                            <input name="temp1" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="mht" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                             <label className={classes.Label1}>{this.props.min1} min</label>
                         </div>
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Straight Range Length</label>
-                            <input name="op" type="text" placeholder="0.0" className={classes.InputElement}
+                            <input name="sfl" type="text" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Nominal Str Range Thickness</label>
-                            <input name="temp2" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="nsrt" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                             <label className={classes.Label1}>{this.props.min2} min</label>
                         </div>
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Ratio</label>
-                            <input name="ic" type="text" placeholder="0.0" className={classes.InputElement}
+                            <input name="hr" type="text" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
 

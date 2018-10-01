@@ -19,7 +19,7 @@ class Parameter3 extends Component {
         },
         showNext: false
     }
-    materialHandler = (event) => {
+    inputHandler = (event) => {
         const updatedParams = {
             ...this.state.params
         };
@@ -37,19 +37,18 @@ class Parameter3 extends Component {
                         <div className={classes.Input}>
                             <label className={classes.Label}>Shell Diameter</label>
                             <input name="sd" type="number" placeholder="0.0" className={classes.InputElement}
-                                onChange={this.materialHandler} />
+                                onChange={this.inputHandler} />
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Length</label>
                             <input name="l" type="number" placeholder="0.0" className={classes.InputElement}
-                                onChange={this.materialHandler} />
-                            <label className={classes.Label1}>{this.props.min1} min</label>
+                                onChange={this.inputHandler} />
                         </div>
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Thickness</label>
                             <input name="t" type="number" placeholder="0.0" className={classes.InputElement}
-                                onChange={this.materialHandler} />
+                                onChange={this.inputHandler} />
                             <label className={classes.Label1}>{this.props.min} min</label>
                         </div>
 

@@ -36,7 +36,7 @@ class Toolbar extends Component {
         geometry[id].selected = true;
         this.setState({geometry:geometry},
             this.props.resetThenSet(id))
-        console.log(id);
+        // console.log(id);
     }
     render() {
         return (

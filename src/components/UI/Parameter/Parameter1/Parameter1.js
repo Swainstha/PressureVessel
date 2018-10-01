@@ -24,14 +24,14 @@ class Parameter1 extends Component {
             ep: 0,
             temp2: 0,
             ih: false,
-            ci: 0,
-            co: 0
+            ic: 0,
+            ec: 0
         },
         showNext: false
     }
 
     inputHandler = (event) => {
-        console.log(event);
+        // console.log(event);
         const updatedParams = {
             ...this.state.params
         };
@@ -49,12 +49,12 @@ class Parameter1 extends Component {
     }
 
     materialHandler = (event) => {
-        console.log(event);
+        console.log(event.value);
         const updatedParams = {
             ...this.state.params
         };
         updatedParams['material'] = event.value;
-        console.log(updatedParams);
+        // console.log(updatedParams);
         this.setState({ params: updatedParams });
     }
 
@@ -77,7 +77,7 @@ class Parameter1 extends Component {
                         <div className={classes.Input} >
                             <label className={classes.Label}>Material</label>
                             <Select  className={classes.Input2} options={opts}
-                                onchange={this.inputHandler} />
+                                onChange={this.materialHandler} />
                             
                         </div>
                         <div className={classes.Input1}>
@@ -96,7 +96,7 @@ class Parameter1 extends Component {
                         <div className={classes.Input1}>
                             <div className={classes.Input}>
                                 <label className={classes.Label}>External Pressure</label>
-                                <input name="op" type="text" placeholder="0.0" className={classes.InputElement}
+                                <input name="ep" type="text" placeholder="0.0" className={classes.InputElement}
                                     onChange={this.inputHandler} />
                             </div>
                             <div className={classes.Input}>
