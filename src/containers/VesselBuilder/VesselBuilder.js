@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import Modal from '../../components/UI/Modal/Modal';
+import Modal1 from '../../components/UI/Modal/Modal1';
+
 import Button from '../../components/UI/Button/Button';
 import Parameter from '../../components/Parameter';
 import Parameter1 from '../../components/UI/Parameter/Parameter1/Parameter1';
@@ -9,6 +11,7 @@ import Parameter3 from '../../components/UI/Parameter/Parameter3/Parameter3';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import axios from '../../axios';
+import Data from '../../components/UI/Data/Data';
 class VesselBuilder extends Component {
     state = {
         showParam : false,
@@ -50,6 +53,17 @@ class VesselBuilder extends Component {
             sd: 0,
             l: 0,
             t: 0
+        },
+        params5: {
+            mawp: 200,
+            map: 241.44,
+            maep: 55.67,
+            sfi: 0.365,
+            sfo: 0.1404,
+            mdmt: 23.2,
+            sfmawp: 206.61,
+            sfmap:248.14,
+            sfmaep: 188.22
         }
     }
 
@@ -87,7 +101,8 @@ class VesselBuilder extends Component {
     }
 
     cancelParamsHandler = () => {
-        this.setState({showParam: false,showCylinder:false, showCylinder:false});
+        this.setState({showParam: false,showCylinder:false, showCylinder:false,
+        showParam1: true, showParam3:true});
     }
 
     previousParamsHandler = () => {
@@ -135,11 +150,13 @@ class VesselBuilder extends Component {
             <Aux>
                 <Modal show={this.state.showParam && this.state.showEllipsoid}>
                     <Parameter1
+                        label = {"Ellipsoidal Head"}
                         show = {this.state.showParam1} 
                         submitParams = {this.submitParamsHandler1}
                         cancelParams = {this.cancelParamsHandler}
                         />
                     <Parameter2 
+                        label = {"Ellipsoidal Head Dimensions"}
                         show = {!this.state.showParam1} 
                         submitParams = {this.submitParamsHandler2}
                         cancelParams = {this.cancelParamsHandler}
@@ -148,13 +165,27 @@ class VesselBuilder extends Component {
                         min2 = {0.3625}
                         />
                 </Modal>
+                <Modal1 show={this.state.showParam && this.state.showEllipsoid && !this.state.showParam1}>
+                <Data
+                        map={this.state.params5.map}
+                        maep={this.state.params5.maep}
+                        mawp={this.state.params5.mawp}
+                        sfi={this.state.params5.sfi}
+                        sfo={this.state.params5.sfo}
+                        sfmap={this.state.params5.sfmap}
+                        sfmawp={this.state.params5.sfmaep}
+                        sfmaep={this.state.params5.sfmawp}
+                        mdmt={this.state.params5.mdmt}/>
+                </Modal1>
                 <Modal show={this.state.showParam && this.state.showCylinder}>
                     <Parameter1
+                        label = {"Cylinder"}
                         show = {this.state.showParam3} 
                         submitParams = {this.submitParamsHandler1}
                         cancelParams = {this.cancelParamsHandler}
                         />
                     <Parameter3 
+                        label = {"Cylinder Dimensions"}
                         show = {!this.state.showParam3} 
                         submitParams = {this.submitParamsHandler3}
                         cancelParams = {this.cancelParamsHandler}
@@ -162,6 +193,18 @@ class VesselBuilder extends Component {
                         min = {0.3625}
                         />
                 </Modal>
+                <Modal1 show={this.state.showParam && this.state.showCylinder && !this.state.showParam3}>
+                    <Data
+                        map={this.state.params5.map}
+                        maep={this.state.params5.maep}
+                        mawp={this.state.params5.mawp}
+                        sfi={this.state.params5.sfi}
+                        sfo={this.state.params5.sfo}
+                        sfmap={this.state.params5.sfmap}
+                        sfmawp={this.state.params5.sfmaep}
+                        sfmaep={this.state.params5.sfmawp}
+                        mdmt={this.state.params5.mdmt}/>
+                </Modal1>
                 <Toolbar 
                 resetThenSet={this.resetThenSet}/>
                 <ThreeScene showC={this.state.cylinder} showE={this.state.ellipsoid}/>

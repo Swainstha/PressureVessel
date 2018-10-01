@@ -65,13 +65,15 @@ class Parameter1 extends Component {
             { value: 'SA-516 70', label: 'SA-516 70' },
             { value: 'SA-524 II Smis Pipe', label: 'SA-524 II Smis Pipe' },
             { value: 'SA-53 EA Wld Pipe', label: 'SA-53 EA Wld Pipe' }
-          ];
-
+          ];    
 
         let form = null;
         if (this.props.show) {
             form = (
                 <div>
+                    <div className={classes.Input}>
+                    <label className={classes.Label3}>{this.props.label}</label>
+                    </div>
                     <form>
 
                         <div className={classes.Input} >

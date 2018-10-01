@@ -67,6 +67,7 @@ class ThreeScene extends Component {
       this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
       this.material = new THREE.MeshBasicMaterial({ color: '#999' });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
+      this.sphere.translateY(0.93);
       this.scene.add(this.sphere)
       
 
@@ -78,7 +79,6 @@ class ThreeScene extends Component {
       this.material = new THREE.MeshBasicMaterial({ color: '#777' })
       this.cylinder = new THREE.Mesh(this.geometry, this.material)
       this.scene.add(this.cylinder)
-      this.sphere.translateY(0.93);
       this.start()
 
     }

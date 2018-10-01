@@ -33,7 +33,11 @@ class Parameter3 extends Component {
         if (this.props.show) {
             form = (
                 <div>
+                    <div className={classes.Input}>
+                    <label className={classes.Label2}>{this.props.label}</label>
+                    </div>
                     <form>
+
                         <div className={classes.Input}>
                             <label className={classes.Label}>Shell Diameter</label>
                             <input name="sd" type="number" placeholder="0.0" className={classes.InputElement}
