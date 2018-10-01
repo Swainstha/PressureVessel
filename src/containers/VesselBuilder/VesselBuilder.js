@@ -11,6 +11,8 @@ class VesselBuilder extends Component {
     state = {
         showParam : false,
         showParam1: true,
+        showCylinder: false,
+        showEllipsoid: false,
         params1: {
             material: "",
             ip: 0,
@@ -28,17 +30,36 @@ class VesselBuilder extends Component {
             sfl: 0,
             nsrt: 0,
             hr: 0,
+        },
+        param3: {
+            material: "",
+            ip: 0,
+            temp1:0,
+            ep: 0,
+            temp2:0,
+            ih: false,
+            ci: 0,
+            co: 0
+        },
+        param4: {
+            sd: 0,
+            l: 0,
+            t: 0
         }
     }
 
-    showBuildParams = () => {
-        this.setState({showParam: true});
-    }
+    // showBuildParams = () => {
+    //     this.setState({showParam: true});
+    // }
 
     submitParamsHandler1 = (event) => {
         //this.setState({showParam: false});
         this.setState({showParam1: false});
-        this.setState({params1:event});
+        if(this.state.showCylinder) {
+            this.setState({params3:event});
+        } else if(this.state.showEllipsoid) {
+            this.setState({params1 :event});
+        }
         console.log(event)
     }
 
@@ -55,6 +76,19 @@ class VesselBuilder extends Component {
 
     previousParamsHandler = () => {
         this.setState({showParam1: true});
+    }
+
+    resetThenSet= (id) => {
+        console.log(id);
+        this.setState({showParam: true});
+        if(id === 0) {
+            this.setState({showParam: true,showCylinder: true,
+            showEllipsoid: false});
+        } else if(id === 1) {
+            this.setState({showParam: true,showCylinder: false,
+                showEllipsoid: true});
+        }
+        
     }
     
     render() {
@@ -77,9 +111,10 @@ class VesselBuilder extends Component {
                         min2 = {0.3625}
                         />
                 </Modal>
-                <Toolbar />
+                <Toolbar 
+                resetThenSet={this.resetThenSet}/>
                 <ThreeScene length={this.state.params1.ip}/>
-                <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button>
+                {/* <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button> */}
 
             </Aux>
         );

@@ -28,17 +28,17 @@ class ThreeScene extends Component {
     this.mount.appendChild(this.renderer.domElement)
 
     //ADD LIGHT
-    this.light = new THREE.AmbientLight( 0x404040 ); // soft white light
-    this.scene.add( this.light );
+    this.light = new THREE.AmbientLight(0x404040); // soft white light
+    this.scene.add(this.light);
 
-    this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-    this.directionalLight.position.set( 0, -70, 100 ).normalize()
-    
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    this.directionalLight.position.set(0, -70, 100).normalize()
+
     //ADD GEOMETRY
-    this.geometry = new THREE.SphereGeometry( 1, 64, 64, 0, 6.3, 0, 1.5 );
-    this.material = new THREE.MeshBasicMaterial( {color: '#999'} );
-    this.sphere = new THREE.Mesh( this.geometry, this.material );
-    this.sphere.translateY(0.93);
+    this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
+    this.material = new THREE.MeshBasicMaterial({ color: '#999' });
+    this.sphere = new THREE.Mesh(this.geometry, this.material);
+    // this.sphere.translateY(0.93);
     this.scene.add(this.sphere)
 
     // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -46,10 +46,10 @@ class ThreeScene extends Component {
     // this.cube = new THREE.Mesh( this.geometry, this.material );
     // this.scene.add( this.cube );  
 
-    this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
-      this.material = new THREE.MeshBasicMaterial({ color: '#777' })
-      this.cylinder = new THREE.Mesh(this.geometry, this.material)
-      this.scene.add(this.cylinder)
+    // this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
+    // this.material = new THREE.MeshBasicMaterial({ color: '#777' })
+    // this.cylinder = new THREE.Mesh(this.geometry, this.material)
+    // this.scene.add(this.cylinder)
     this.start()
 
     console.log("ComponentDidMount ThreeScene");
@@ -64,13 +64,13 @@ class ThreeScene extends Component {
     console.log(nextProps.length);
     const l = nextProps.length;
     if (l > 0 && nextProps.length !== this.props.length) {
-
-      this.stop()
-      //this.scene.remove(this.cylinder)
-      // this.geometry = new THREE.CylinderGeometry(2, 2, 2, 2)
-      // this.material = new THREE.MeshBasicMaterial({ color: '#ffff00' })
-      // this.cylinder = new THREE.Mesh(this.geometry, this.material)
-      // this.scene.add(this.cylinder)
+      console.log(" Inside ComponentWillReceiveProps ThreeScene ");
+      //this.stop()
+      this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
+      this.material = new THREE.MeshBasicMaterial({ color: '#777' })
+      this.cylinder = new THREE.Mesh(this.geometry, this.material)
+      this.scene.add(this.cylinder)
+      this.sphere.translateY(0.93);
       this.start()
     }
   }
