@@ -10,7 +10,7 @@ import Parameter2 from '../../components/UI/Parameter/Parameter2/Parameter2';
 import Parameter3 from '../../components/UI/Parameter/Parameter3/Parameter3';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import axios from '../../axios';
+// import axios from '../../axios';
 import Data from '../../components/UI/Data/Data';
 class VesselBuilder extends Component {
     state = {
@@ -126,23 +126,23 @@ class VesselBuilder extends Component {
         
     }
 
-    getRequest = () => {
-        axios.get("/polls/" + 5)
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-              this.setState({error: true});
-              //console.log(error);
-          });
-    }
+    // getRequest = () => {
+    //     axios.get("/polls/" + 5)
+    //       .then(response => {
+    //         console.log(response);
+    //       })
+    //       .catch(error => {
+    //           this.setState({error: true});
+    //           //console.log(error);
+    //       });
+    // }
 
-    postRequest = () => {
-        axios.post("/polls/",this.state)
-            .then(response => {
-                console.log(response);
-            });
-    }
+    // postRequest = () => {
+    //     axios.post("/polls/",this.state)
+    //         .then(response => {
+    //             console.log(response);
+    //         });
+    // }
     
     render() {
 
