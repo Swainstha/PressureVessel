@@ -98,6 +98,7 @@ class VesselBuilder extends Component {
         this.setState({params4:event});
         this.setState({cylinder: true});
         console.log(this.state);
+        this.postRequest();
     }
 
     cancelParamsHandler = () => {
