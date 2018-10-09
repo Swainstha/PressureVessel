@@ -1,141 +1,150 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
-import * as OBJLoader from 'three-obj-loader';
-import * as TrackballControls from 'three-trackballcontrols';
-import ThreeScene from './ThreeScene';
+import CameraControls from 'camera-controls';
+CameraControls.install({ THREE: THREE }); // required otherwise it will'cannot read property of undefined for THREE objects
 class Iphone extends Component {
 
+    state = {
+        show1: false,
+        show2: false
+    }
     componentDidMount() {
-        this.scene = new THREE.Scene();
+        const width = this.mount.clientWidth
+        const height = this.mount.clientHeight
 
-        this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-        this.camera.position.set(-5, 12, 10);
-        this.camera.lookAt(this.scene.position);
+        // this.geometry = null;
+        // this.material = null;
+        // this.cylinder = null;
+        //ADD SCENE
+        this.scene = new THREE.Scene()
 
-        this.renderer = new THREE.WebGLRenderer({
-            alpha: true,
-            antialias: true
-        });
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.clock = new THREE.Clock();
 
+        //ADD CAMERA
+        this.camera = new THREE.PerspectiveCamera(
+            75,
+            width / height,
+            0.1,
+            1000
+        )
+        this.camera.position.z = 4
+
+        //ADD RENDERER
+        this.renderer = new THREE.WebGLRenderer({ antialias: true })
+        this.renderer.setClearColor('#ddd')
+        this.renderer.setSize(width, height)
         this.mount.appendChild(this.renderer.domElement)
 
+        //ADD LIGHT
+        this.light = new THREE.AmbientLight(0x404040); // soft white light
+        this.scene.add(this.light);
 
-        /////////////////////////////////////////
-        // Trackball Controller
-        /////////////////////////////////////////
+        this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        this.directionalLight.position.set(0, -70, 100).normalize()
 
-        // this.controls = new THREE.TrackballControls(this.camera);
-        // this.controls.rotateSpeed = 5.0;
-        // this.controls.zoomSpeed = 3.2;
-        // this.controls.panSpeed = 0.8;
-        // this.controls.noZoom = false;
-        // this.controls.noPan = true;
-        // this.controls.staticMoving = false;
-        // this.controls.dynamicDampingFactor = 0.2;
+        // create a point light
+        const pointLight =
+            new THREE.PointLight(0xFFFFFF);
+
+        // set its position
+        pointLight.position.x = 10;
+        pointLight.position.y = 50;
+        pointLight.position.z = 130;
+
+        // add to the scene
+        this.scene.add(pointLight);
+
+        this.cameraControls = new CameraControls(this.camera, this.renderer.domElement);
+        //ADD GEOMETRY
+
+        // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        // this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        // this.cube = new THREE.Mesh( this.geometry, this.material );
+        // this.scene.add( this.cube );  
+
+        // this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
+        // this.material = new THREE.MeshBasicMaterial({ color: '#777' })
+        // this.cylinder = new THREE.Mesh(this.geometry, this.material)
+        // this.scene.add(this.cylinder)
+        this.start()
+
+        console.log("ComponentDidMount ThreeScene");
+    }
+
+    componentWillUnmount() {
+        console.log("ComponentWillUnmount ThreeScene");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("ComponentWillReceiveProps ThreeScene ");
+        if (nextProps.showE && !this.state.show1) {
+
+            this.setState({ show1: true });
+            this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
+            this.material = new THREE.MeshPhongMaterial({ color: '#296789' });
+            this.sphere = new THREE.Mesh(this.geometry, this.material);
+            this.sphere.translateY(0.93);
+            this.scene.add(this.sphere);
+            this.cameraControls.rotate(0.,0.1,true);
 
 
-        /////////////////////////////////////////
-        // Lighting
-        /////////////////////////////////////////
+        }
+        if (nextProps.showC && !this.state.show2) {
 
-        let iphone_color = '#FAFAFA',
-            ambientLight = new THREE.AmbientLight('#EEEEEE'),
-            hemiLight = new THREE.HemisphereLight(iphone_color, iphone_color, 0),
-            light = new THREE.PointLight(iphone_color, 1, 100);
+            this.setState({ show2: true });
+            this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
+            this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba' })
+            this.cylinder = new THREE.Mesh(this.geometry, this.material)
+            this.scene.add(this.cylinder)
 
-        hemiLight.position.set(0, 50, 0);
-        light.position.set(0, 20, 10);
+        }
+    }
+    start = () => {
+        if (!this.frameId) {
+            this.renderScene();
+            this.frameId = requestAnimationFrame(this.animate.bind(this))
+        }
+    }
 
-        this.scene.add(ambientLight);
-        this.scene.add(hemiLight);
-        this.scene.add(light);
+    stop = () => {
 
+        cancelAnimationFrame(this.frameId)
+    }
 
-        /////////////////////////////////////////
-        // Utilities
-        /////////////////////////////////////////
-
-        let axisHelper = new THREE.AxisHelper(1.25);
-        this.scene.add(axisHelper);
-
-        // this.controls.addEventListener('change', this.renderPhone);
-
-        /////////////////////////////////////////
-        // Object Loader
-        /////////////////////////////////////////
-
-        let dae,
-            loader = new THREE.DefaultLoadingManager;
-
+    animate = () => {
+        // if (this.cube != null) {
+        //   this.cube.rotation.x += 0.01
+        //   this.cube.rotation.y += 0.01
+        // }
+        // this.cylinder.rotation.x += 0.01
+        // this.cylinder.rotation.y += 0.01
+        const delta = this.clock.getDelta();
+        // const isControlsUpdated = 
         
+        this.cameraControls.update(delta);
+        window.requestAnimationFrame(this.animate);
 
-        loader.options.convertUpAxis = true;
-        loader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/392/iphone6.dae', this.loadCollada);
-        this.animationLoop();
+        // if (isControlsUpdated) {
+
+            this.renderScene();
+
+        // }
+        // this.renderScene()
+        // this.frameId = window.requestAnimationFrame(this.animate)
     }
 
-    loadCollada = (collada) => {
-        this.dae = collada.scene;
-        this.dae.position.set(0.4, 0, 0.8);
-        this.scene.add(this.dae);
-        this.renderPhone();
-    }
-
-    renderPhone = () => {
-        this.renderer.render(this.scene, this.camera);
-    }
-
-    // Render the scene when the controls have changed.
-    // If you don’t have other animations or changes in your scene,
-    // you won’t be draining system resources every frame to render a scene.
-
-
-    // Avoid constantly rendering the scene by only 
-    // updating the controls every requestAnimationFrame
-    animationLoop = () => {
-        requestAnimationFrame(this.animationLoop);
-        this.controls.update();
+    renderScene = () => {
+        this.renderer.render(this.scene, this.camera)
     }
 
     render() {
-
         return (
             <div
-            style={{ width: '100%', height: '700px' }}
-            ref={(mount) => { this.mount = mount }}
-          />
+                style={{ width: '100%', height: '700px' }}
+                ref={(mount) => { this.mount = mount }}
+            />
         )
     }
-
-
-
-
-
-    /////////////////////////////////////////
-    // Render Loop
-    /////////////////////////////////////////
-
-    
-
-    
-
-
-    /////////////////////////////////////////
-    // Window Resizing
-    /////////////////////////////////////////
-
-    // window.addEventListener('resize', function () {
-    //     camera.aspect = window.innerWidth / window.innerHeight;
-    //     camera.updateProjectionMatrix();
-    //     renderer.setSize(window.innerWidth, window.innerHeight);
-    //     controls.handleResize();
-    //     renderPhone();
-    // }, false);
-
-
-
 }
 
-export default Iphone;
+export default Iphone

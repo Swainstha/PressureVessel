@@ -38,47 +38,42 @@ class Parameter1 extends Component {
         if (this.props.show) {
             form = (
                 <div>
-                    <div className={classes.Input}>
-                    <label className={classes.Label2}>{this.props.label}</label>
-                    </div>
                     <form>
-
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Diameter</label>
-                            <input name="hd" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="hd" type="text" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Minimum Head Thickness</label>
-                            <input name="mht" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="temp1" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                             <label className={classes.Label1}>{this.props.min1} min</label>
                         </div>
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Straight Range Length</label>
-                            <input name="sfl" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="op" type="text" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Nominal Str Range Thickness</label>
-                            <input name="nsrt" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="temp2" type="number" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                             <label className={classes.Label1}>{this.props.min2} min</label>
                         </div>
 
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Ratio</label>
-                            <input name="hr" type="number" placeholder="0.0" className={classes.InputElement}
+                            <input name="ic" type="text" placeholder="0.0" className={classes.InputElement}
                                 onChange={this.materialHandler} />
                         </div>
 
                     </form>
                     <Button btnType="Success" clicked={this.props.previousParams}>Previous</Button>
                     <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>Submit</Button>
-                    <Button btnType="Success" disabled={this.props.btndisabled} clicked={this.props.finish1}>Finish</Button>
-                    <Button btnType="Danger" disabled={this.props.btndisabled} clicked={this.props.cancelParams}>Cancel</Button>
-
+                    <Button btnType="Danger" clicked={this.props.cancelParams}>Cancel</Button>
+                    
                 </div>
             );
         } else {

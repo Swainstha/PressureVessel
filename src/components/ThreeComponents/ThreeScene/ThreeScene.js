@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 
+import CameraControls from 'camera-controls';
+import  * as TrackballControls from 'three-trackballcontrols';
+ 
+CameraControls.install( { THREE: THREE } );
+// TrackballControls.install( { THREE: THREE } );
+
 class ThreeScene extends Component {
 
   state = {
@@ -11,9 +17,8 @@ class ThreeScene extends Component {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
 
-    // this.geometry = null;
-    // this.material = null;
-    // this.cylinder = null;
+    // this.clock = new THREE.Clock();
+    
     //ADD SCENE
     this.scene = new THREE.Scene()
 
@@ -24,7 +29,21 @@ class ThreeScene extends Component {
       0.1,
       1000
     )
+    
     this.camera.position.z = 4
+
+    //ADD trackball controller
+    this.controls = new TrackballControls(this.camera);
+
+    this.controls.rotateSpeed = 1.0;
+    this.controls.zoomSpeed = 1.2;
+    this.controls.panSpeed = 0.8;
+    this.controls.noZoom = false;
+    this.controls.noPan = false;
+    this.controls.staticMoving = true;
+    this.controls.dynamicDampingFactor = 0.3;
+    this.controls.keys = [ 65, 83, 68 ];
+
 
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -32,13 +51,14 @@ class ThreeScene extends Component {
     this.renderer.setSize(width, height)
     this.mount.appendChild(this.renderer.domElement)
 
+    // this.cameraControls = new CameraControls( this.camera, this.renderer.domElement );
     //ADD LIGHT
     this.light = new THREE.AmbientLight(0x404040); // soft white light
     this.scene.add(this.light);
 
     this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     this.directionalLight.position.set(0, -70, 100).normalize()
-
+    
     // create a point light
     const pointLight =
       new THREE.PointLight(0xFFFFFF);
@@ -50,17 +70,7 @@ class ThreeScene extends Component {
 
     // add to the scene
     this.scene.add(pointLight);
-    //ADD GEOMETRY
-
-    // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    // this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-    // this.cube = new THREE.Mesh( this.geometry, this.material );
-    // this.scene.add( this.cube );  
-
-    // this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
-    // this.material = new THREE.MeshBasicMaterial({ color: '#777' })
-    // this.cylinder = new THREE.Mesh(this.geometry, this.material)
-    // this.scene.add(this.cylinder)
+    
     this.start()
 
     console.log("ComponentDidMount ThreeScene");
@@ -74,7 +84,7 @@ class ThreeScene extends Component {
     console.log("ComponentWillReceiveProps ThreeScene ");
     if (nextProps.showE && !this.state.show1) {
 
-      this.setState({ show1: true });
+      this.setState({show1: true});
       this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
       this.material = new THREE.MeshPhongMaterial({ color: '#296789' });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
@@ -85,7 +95,7 @@ class ThreeScene extends Component {
     }
     if (nextProps.showC && !this.state.show2) {
 
-      this.setState({ show2: true });
+      this.setState({show2: true});
       this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
       this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba' })
       this.cylinder = new THREE.Mesh(this.geometry, this.material)
@@ -105,12 +115,15 @@ class ThreeScene extends Component {
   }
 
   animate = () => {
-    if (this.cube != null) {
+    /*if (this.cube != null) {
       this.cube.rotation.x += 0.01
       this.cube.rotation.y += 0.01
-    }
+    }*/
+    // const delta = this.clock.getDelta();
+    // const isControlsUpdated = this.cameraControls.update( delta );
     // this.cylinder.rotation.x += 0.01
     // this.cylinder.rotation.y += 0.01
+    this.controls.update();
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
   }
