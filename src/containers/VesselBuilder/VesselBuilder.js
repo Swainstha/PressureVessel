@@ -10,6 +10,7 @@ import Parameter2 from '../../components/UI/Parameter/Parameter2/Parameter2';
 import Parameter3 from '../../components/UI/Parameter/Parameter3/Parameter3';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import Iphone from '../../components/ThreeComponents/ThreeScene/Iphone';
 // import axios from '../../axios';
 import Data from '../../components/UI/Data/Data';
 class VesselBuilder extends Component {
@@ -209,6 +210,7 @@ class VesselBuilder extends Component {
                 <Toolbar 
                 resetThenSet={this.resetThenSet}/>
                 <ThreeScene showC={this.state.cylinder} showE={this.state.ellipsoid}/>
+                {/* <Iphone /> */}
                 {/* <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button> */}
 
             </Aux>
