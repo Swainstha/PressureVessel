@@ -24,13 +24,13 @@ class VesselBuilder extends Component {
     btn1: true,
     btn2: true,
     params1: {
-      material: "",
-      ip: 0,
-      temp1: 0,
+      material: "SA-516 70",
+      ip: 200,
+      temp1: 200,
       ep: 0,
       temp2: 0,
       ih: false,
-      ci: 0,
+      ci: 1,
       co: 0
 
     },
@@ -42,17 +42,17 @@ class VesselBuilder extends Component {
       hr: 0
     },
     params3: {
-      material: "",
-      ip: 0,
-      temp1: 0,
+      material: "SA-516 70",
+      ip: 200,
+      temp1: 200,
       ep: 0,
       temp2: 0,
       ih: false,
-      ci: 0,
+      ci: 1,
       co: 0
     },
     params4: {
-      sd: 0,
+      sd: 2,
       l: 0,
       t: 0
     },
@@ -89,7 +89,9 @@ class VesselBuilder extends Component {
 
   postRequest = () => {
     const data = {
-      ...this.state.params1
+      ...this.state.params3,
+      ...this.state.params4,
+      shape: "cylinder"
     }
     
     const user = {
@@ -132,7 +134,7 @@ class VesselBuilder extends Component {
     this.setState({showParam3: true});
     this.setState({params4: event});
     this.setState({cylinder: true});
-    this.postRequest();
+    this.sendDataCylinder();
     // console.log(this.state);
   }
 
@@ -155,6 +157,19 @@ class VesselBuilder extends Component {
     } else if (id === 1) {
       this.setState({showParam: true, showCylinder: false, showEllipsoid: true});
     }
+
+  }
+
+  sendDataCylinder = () => {
+    const data ={
+      ...this.params3,
+      ...this.params4,
+      shape: "cylinder"
+    }
+    this.postRequest(data);
+  }
+
+  sendDataEllipsoid = (data) => {
 
   }
 
