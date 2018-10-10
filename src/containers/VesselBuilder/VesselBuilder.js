@@ -87,18 +87,10 @@ class VesselBuilder extends Component {
     });
   }
 
-  postRequest = () => {
-    const data = {
-      ...this.state.params3,
-      ...this.state.params4,
-      shape: "cylinder"
-    }
+  postRequest = (data) => {
     
-    const user = {
-        name: "hello"
-      };
     axios.post("/api/data/", data).then(response => {
-      console.log(data);
+      console.log(response);
       // console.log(response);
     });
   }
@@ -122,19 +114,21 @@ class VesselBuilder extends Component {
   }
 
   submitParamsHandler2 = (event) => {
-    this.setState({showParam: false});
-    this.setState({showParam1: true});
+    // this.setState({showParam: false});
+    // this.setState({showParam1: true});
+    // this.setState({ellipsoid: true});
     this.setState({params2: event});
-    this.setState({ellipsoid: true});
+    // this.sendDataEllipsoid();
     // console.log(event)
   }
 
   submitParamsHandler3 = (event) => {
-    this.setState({showParam: false});
-    this.setState({showParam3: true});
+    // this.setState({showParam: false});
+    // this.setState({showParam3: true});
+    
+    // this.setState({cylinder: true});
     this.setState({params4: event});
-    this.setState({cylinder: true});
-    this.sendDataCylinder();
+    // this.sendDataCylinder();
     // console.log(this.state);
   }
 
@@ -162,15 +156,26 @@ class VesselBuilder extends Component {
 
   sendDataCylinder = () => {
     const data ={
-      ...this.params3,
-      ...this.params4,
+      ...this.state.params3,
+      ...this.state.params4,
       shape: "cylinder"
     }
+    this.setState({showParam: false});
+    this.setState({showParam3: true});
+    this.setState({cylinder: true});
     this.postRequest(data);
   }
 
-  sendDataEllipsoid = (data) => {
-
+  sendDataEllipsoid = () => {
+    const data ={
+      ...this.state.params1,
+      ...this.state.params2,
+      shape: "ellipsoid"
+    }
+    this.setState({showParam: false});
+    this.setState({showParam1: true});
+    this.setState({ellipsoid: true});
+    this.postRequest(data);
   }
 
   render() {
@@ -179,14 +184,14 @@ class VesselBuilder extends Component {
     return (<Aux>
       <Modal show={this.state.showParam && this.state.showEllipsoid}>
         <Parameter1 label={"Ellipsoidal Head"} show={this.state.showParam1} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler}/>
-        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} btndisabled={this.state.btn1} finish1={this.finish1Handler} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
+        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} finish1={this.sendDataEllipsoid} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
       </Modal>
       <Modal1 show={this.state.showParam && this.state.showEllipsoid && !this.state.showParam1}>
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>
       </Modal1>
       <Modal show={this.state.showParam && this.state.showCylinder}>
         <Parameter1 label={"Cylinder"} show={this.state.showParam3} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler}/>
-        <Parameter3 label={"Cylinder Dimensions"} show={!this.state.showParam3} btndisabled={this.state.btn2} finish2={this.finish2Handler} submitParams={this.submitParamsHandler3} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min={0.3625}/>
+        <Parameter3 label={"Cylinder Dimensions"} show={!this.state.showParam3} finish2={this.sendDataCylinder} submitParams={this.submitParamsHandler3} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min={0.3625}/>
       </Modal>
       <Modal1 show={this.state.showParam && this.state.showCylinder && !this.state.showParam3}>
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>
