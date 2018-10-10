@@ -45,8 +45,8 @@ class Toolbar extends Component {
                 {/* <NavigationItems/> */}
                 <ul className={cls.NavigationItems}>
                     <NavigationItem >File</NavigationItem>
-                    <NavigationItem>Component</NavigationItem>
-                    <NavigationItem>Nozzle</NavigationItem>
+                    {/* <NavigationItem>Component</NavigationItem>
+                    <NavigationItem>Nozzle</NavigationItem> */}
 
                     <div className="wrapper">
                         <Dropdown

@@ -88,11 +88,16 @@ class VesselBuilder extends Component {
   }
 
   postRequest = () => {
+    const data = {
+      ...this.state.params1
+    }
+    
     const user = {
         name: "hello"
       };
-    axios.post("/api/data/", JSON.stringify(this.state.params1)).then(response => {
-      console.log(response);
+    axios.post("/api/data/", data).then(response => {
+      console.log(data);
+      // console.log(response);
     });
   }
 
@@ -172,7 +177,7 @@ class VesselBuilder extends Component {
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>
       </Modal1>
       <Toolbar resetThenSet={this.resetThenSet}/>
-      <ThreeScene showC={this.state.cylinder} showE={this.state.ellipsoid}/> {/* <Button btnType="Success" clicked={this.showBuildParams}>BUILD</Button> */}
+      <ThreeScene showC={this.state.cylinder} showE={this.state.ellipsoid}/>
 
     </Aux>);
   }
