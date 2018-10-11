@@ -54,7 +54,8 @@ class VesselBuilder extends Component {
     params4: {
       sd: 2,
       l: 0,
-      t: 0
+      t: 0,
+      n: 1
     },
     params5: {
       mawp: 200,
@@ -197,7 +198,7 @@ class VesselBuilder extends Component {
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>
       </Modal1>
       <Toolbar resetThenSet={this.resetThenSet}/>
-      <ThreeScene showC={this.state.cylinder} showE={this.state.ellipsoid}/>
+      <ThreeScene num = {this.state.params4.n} showC={this.state.cylinder} showE={this.state.ellipsoid}/>
 
     </Aux>);
   }
