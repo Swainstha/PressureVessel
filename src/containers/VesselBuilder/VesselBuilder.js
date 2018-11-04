@@ -13,7 +13,7 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import axios from '../../axios';
 import Data from '../../components/UI/Data/Data';
 
-const API_HOST = 'http://192.168.1.75:8000'
+const API_HOST = 'http://192.168.1.75:8000';
 let _csrfToken = null;
 
 async function getCsrfToken() {
