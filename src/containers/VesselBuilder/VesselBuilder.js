@@ -170,8 +170,9 @@ class VesselBuilder extends Component {
   submitParamsHandler2 = (event) => {
     // this.setState({showParam: false});
     // this.setState({showParam1: true});
-    this.setState({params2: event});
     this.setState({cylinder: false, ellipsoid: true});
+    this.setState({params2: event});
+    
     // this.setState({ellipsoid: true});
     // this.sendDataEllipsoid();
     // console.log(event)
@@ -214,6 +215,7 @@ class VesselBuilder extends Component {
   }
 
   sendDataCylinder = () => {
+    this.setState({ ellipsoid: false, cylinder: true });
     const data = {
       ...this.state.params3,
       ...this.state.params4,
@@ -221,11 +223,12 @@ class VesselBuilder extends Component {
     }
     this.setState({ showParam: false });
     this.setState({ showParam3: true });
-    this.setState({ ellipsoid: false, cylinder: true });
+    
     this.postRequest(data);
   }
 
   sendDataEllipsoid = () => {
+    this.setState({ ellipsoid: true, cylinder: false });
     const data = {
       ...this.state.params1,
       ...this.state.params2,
@@ -237,34 +240,34 @@ class VesselBuilder extends Component {
     this.postRequest(data);
   }
 
-  sendDataEllipse =() => {
-    const data = {
-      ...this.state.params1,
-      shape: "ellipsoid"
-    }
-    this.setState({showParam: false});
-    this.setState({showParam1: true});
-    this.setState({showEllipsoid: false});
-    this.postRequest(data);
-  }
+  // sendDataEllipse =() => {
+  //   const data = {
+  //     ...this.state.params1,
+  //     shape: "ellipsoid"
+  //   }
+  //   this.setState({showParam: false});
+  //   this.setState({showParam1: true});
+  //   this.setState({showEllipsoid: false});
+  //   this.postRequest(data);
+  // }
 
-  sendDataCylinder = () => {
-    const data = {
-      ...this.state.params3,
-      shape:"cylinder"
-    }
-    this.setState({showParam: false});
-    this.setState({showParam3: true});
-    this.setState({showCylinder: false});
-    this.postRequest(data);
-  }
+  // sendDataCylinder = () => {
+  //   const data = {
+  //     ...this.state.params3,
+  //     shape:"cylinder"
+  //   }
+  //   this.setState({showParam: false});
+  //   this.setState({showParam3: true});
+  //   this.setState({showCylinder: false});
+  //   this.postRequest(data);
+  // }
   render() {
 
     // console.log("Rerendered");
     return (<Aux>
       <Modal show={this.state.showParam && this.state.showEllipsoid}>
         <Parameter1 label={"Ellipsoidal Head"} show={this.state.showParam1} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler}/>
-        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} finish1={this.sendDataEllipse} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
+        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} finish1={this.sendDataEllipsoid} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
       </Modal>
       <Modal1 show={this.state.showParam && this.state.showEllipsoid && !this.state.showParam1}>
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt} />
