@@ -55,6 +55,12 @@ class Parameter3 extends Component {
                                 onChange={this.inputHandler} />
                             <label className={classes.Label1}>{this.props.min} min</label>
                         </div>
+                        <div className={classes.Input}>
+                            <label className={classes.Label}>Number</label>
+                            <input name="n" type="number" placeholder="0.0" className={classes.InputElement}
+                                onChange={this.inputHandler} />
+                        </div>
+
 
                     </form>
                     <Button btnType="Success" clicked={this.props.previousParams}>Previous</Button>
