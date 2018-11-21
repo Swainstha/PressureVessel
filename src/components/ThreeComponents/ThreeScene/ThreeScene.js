@@ -10,7 +10,9 @@ class ThreeScene extends Component {
 
   state = {
     show1: false,
-    show2: false
+    show2: false,
+    addAnother: false,
+    transY: 1
   }
   componentDidMount() {
     const width = this.mount.clientWidth
@@ -109,6 +111,29 @@ class ThreeScene extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("ComponentWillReceiveProps ThreeScene ");
+    //&& !this.state.show1
+    if(nextProps.showC && !this.state.show2) {
+      this.setState({ show2: true });
+      this.geometry = new THREE.CylinderGeometry(0.3, 0.3, 1, 32, 32, true, 0, 6.3)
+      this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba', emissive: 0x072534, side: THREE.DoubleSide })
+      this.nozzle = new THREE.Mesh(this.geometry, this.material);
+      this.nozzle.translateY(1.5);
+      this.nozzle.translateX(-0.5);
+      this.nozzle.translateZ(1.1);
+      this.nozzle.rotateX(3.14/2);
+      //
+      
+      this.scene.add(this.nozzle);
+    }
+    if(nextProps.showE && this.state.show1) {
+      this.setState({ show1: false });
+      this.geometry = new THREE.SphereGeometry(1.125, 64, 64, 0, 6.3, 0, 1.1);
+      this.material = new THREE.MeshPhongMaterial({ color: '#296789', emissive: 0x072534, side: THREE.DoubleSide });
+      this.sphere = new THREE.Mesh(this.geometry, this.material);
+      this.sphere.rotateX(3.14);
+      this.sphere.translateY(-this.state.transY - 1 - 0.51);
+      this.scene.add(this.sphere);
+    }
     if (nextProps.showE && !this.state.show1) {
 
       this.setState({ show1: true });
@@ -117,21 +142,28 @@ class ThreeScene extends Component {
       this.material = new THREE.MeshPhongMaterial({ color: '#296789', emissive: 0x072534, side: THREE.DoubleSide });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
       this.sphere.translateY(1.49);
-      this.scene.add(this.sphere)
+      this.scene.add(this.sphere);
 
-    }
-    if (nextProps.showC && !this.state.show2) {
-
-      this.setState({ show2: true });
-      let transY = 1;
+    } 
+    
+    if (nextProps.showC ) {
+      console.log(this.state.transY);
+      //this.setState({ show2: true });
+      let tranY = this.state.transY;
       for (let i = 0; i < this.props.num; i++) {
         this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
         this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba', emissive: 0x072534, side: THREE.DoubleSide })
         this.cylinder = new THREE.Mesh(this.geometry, this.material)
-        this.cylinder.translateY(transY);
-        transY = transY - 2;
+        this.cylinder.translateY(tranY);
+        
+        
+        tranY = tranY - 2;
+        console.log(tranY);
         this.scene.add(this.cylinder)
       }
+      console.log(tranY);
+      this.setState({transY: tranY});
+      console.log(this.state.transY);
       this.start()
 
     }

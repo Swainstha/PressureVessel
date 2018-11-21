@@ -152,7 +152,7 @@ class VesselBuilder extends Component {
   // }
   submitParamsHandler1 = (event) => {
     //this.setState({showParam: false});
-
+    this.setState({cylinder: false, ellipsoid: false});
     if (this.state.showCylinder) {
       this.setState({ params3: event });
       this.setState({ showParam3: false });
@@ -167,6 +167,7 @@ class VesselBuilder extends Component {
     // this.setState({showParam: false});
     // this.setState({showParam1: true});
     // this.setState({ellipsoid: true});
+    this.setState({cylinder: false, ellipsoid: false});
     this.setState({ params2: event });
     // this.sendDataEllipsoid();
     // console.log(event)
@@ -177,16 +178,19 @@ class VesselBuilder extends Component {
     // this.setState({showParam3: true});
 
     // this.setState({cylinder: true});
+    this.setState({cylinder: false, ellipsoid: false});
     this.setState({ params4: event });
     // this.sendDataCylinder();
     // console.log(this.state);
   }
 
   cancelParamsHandler = () => {
-    this.setState({ showParam: false, showCylinder: false, showCylinder: false, showParam1: true, showParam3: true });
+    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ showParam: false, showCylinder: false, showEllipsoid: false, showParam1: true, showParam3: true });
   }
 
   previousParamsHandler = () => {
+    this.setState({cylinder: false, ellipsoid: false});
     if (this.state.showEllipsoid) {
       this.setState({ showParam1: true });
     } else if (this.state.showCylinder) {
@@ -195,6 +199,7 @@ class VesselBuilder extends Component {
   }
 
   resetThenSet = (id) => {
+    this.setState({cylinder: false, ellipsoid: false});
     this.setState({ showParam: true });
     if (id === 0) {
       this.setState({ showParam: true, showCylinder: true, showEllipsoid: false });
@@ -211,7 +216,7 @@ class VesselBuilder extends Component {
     }
     this.setState({ showParam: false });
     this.setState({ showParam3: true });
-    this.setState({ cylinder: true });
+    this.setState({ ellipsoid: false, cylinder: true });
     this.postRequest(data);
   }
 
@@ -223,7 +228,7 @@ class VesselBuilder extends Component {
     }
     this.setState({ showParam: false });
     this.setState({ showParam1: true });
-    this.setState({ ellipsoid: true });
+    this.setState({ ellipsoid: true, cylinder: false });
     this.postRequest(data);
   }
 
