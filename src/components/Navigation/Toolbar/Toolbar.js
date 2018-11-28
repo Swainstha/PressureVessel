@@ -19,6 +19,12 @@ class Toolbar extends Component {
                 title: 'Ellipsoidal Head',
                 selected: false,
                 key: 'geometry'
+            },
+            {
+                id: 2,
+                title: 'Nozzle',
+                selected: false,
+                key: 'geometry'
             }
         ]
     }

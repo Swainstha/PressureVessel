@@ -8,6 +8,7 @@ import Parameter from '../../components/Parameter';
 import Parameter1 from '../../components/UI/Parameter/Parameter1/Parameter1';
 import Parameter2 from '../../components/UI/Parameter/Parameter2/Parameter2';
 import Parameter3 from '../../components/UI/Parameter/Parameter3/Parameter3';
+import Parameter4 from '../../components/UI/Parameter/Parameter4/Parameter4';
 import ThreeScene from '../../components/ThreeComponents/ThreeScene/ThreeScene';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import axios from '../../axios';
@@ -49,17 +50,20 @@ async function testRequest(method) {
   } catch (error) {
     console.log("error");
   }
-  
+
 }
 
 class VesselBuilder extends Component {
 
   state = {
+    token : '',
     showParam: false,
     showParam1: true,
     showParam3: true,
     showCylinder: false,
     showEllipsoid: false,
+    showNozzle: false,
+    nozzle: false,
     cylinder: false,
     ellipsoid: false,
     btn1: true,
@@ -109,6 +113,15 @@ class VesselBuilder extends Component {
       sfmap: 248.14,
       sfmaep: 188.22
     },
+    params6: {
+      position: 'radial',
+      distance: 0,
+      angle: 0,
+      length: 0,
+      ca: 0.0,
+      nps: '',
+      schedule: ''
+    },
     test: {
       name: "SA-516",
       "strength": 55
@@ -131,13 +144,20 @@ class VesselBuilder extends Component {
 
     //const data = await testRequest('POST');
 
-    axios.post("/api/data/", data).then(response => {
+    var headers = {
+      'Content-Type': 'application/json',
+      'JWT': this.state.token 
+  }
+  console.log(this.state.token);
+    axios.post("/api/data/", data, {header: headers}).then(response => {
       console.log(response);
       // console.log(response);
     });
   }
 
   async componentDidMount() {
+    //console.log(this.props.token)
+    this.setState({token : this.props.token});
     console.log("COmponentDidMount");
     this.setState({
       testGet: await getCsrfToken(),
@@ -152,7 +172,7 @@ class VesselBuilder extends Component {
   // }
   submitParamsHandler1 = (event) => {
     //this.setState({showParam: false});
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false });
     if (this.state.showCylinder) {
       this.setState({ params3: event });
       this.setState({ showParam3: false });
@@ -167,7 +187,7 @@ class VesselBuilder extends Component {
     // this.setState({showParam: false});
     // this.setState({showParam1: true});
     // this.setState({ellipsoid: true});
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false });
     this.setState({ params2: event });
     // this.sendDataEllipsoid();
     // console.log(event)
@@ -178,19 +198,24 @@ class VesselBuilder extends Component {
     // this.setState({showParam3: true});
 
     // this.setState({cylinder: true});
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false });
     this.setState({ params4: event });
     // this.sendDataCylinder();
     // console.log(this.state);
   }
 
+  submitParamsHandler6 = (event) => {
+    console.log(event);
+    this.setState({ params6: event });
+  }
+
   cancelParamsHandler = () => {
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false });
     this.setState({ showParam: false, showCylinder: false, showEllipsoid: false, showParam1: true, showParam3: true });
   }
 
   previousParamsHandler = () => {
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false });
     if (this.state.showEllipsoid) {
       this.setState({ showParam1: true });
     } else if (this.state.showCylinder) {
@@ -199,12 +224,15 @@ class VesselBuilder extends Component {
   }
 
   resetThenSet = (id) => {
-    this.setState({cylinder: false, ellipsoid: false});
+    this.setState({ cylinder: false, ellipsoid: false, nozzle: false });
+    console.log(id);
     this.setState({ showParam: true });
     if (id === 0) {
-      this.setState({ showParam: true, showCylinder: true, showEllipsoid: false });
+      this.setState({ showParam: true, showCylinder: true, showEllipsoid: false, showNozzle: false });
     } else if (id === 1) {
-      this.setState({ showParam: true, showCylinder: false, showEllipsoid: true });
+      this.setState({ showParam: true, showCylinder: false, showEllipsoid: true, showNozzle: false });
+    } else if (id === 2) {
+      this.setState({ showParam: true, showCylinder: false, showEllipsoid: false, showNozzle: true });
     }
   }
 
@@ -216,7 +244,7 @@ class VesselBuilder extends Component {
     }
     this.setState({ showParam: false });
     this.setState({ showParam3: true });
-    this.setState({ ellipsoid: false, cylinder: true });
+    this.setState({ ellipsoid: false, cylinder: true, nozzle: false });
     this.postRequest(data);
   }
 
@@ -228,7 +256,18 @@ class VesselBuilder extends Component {
     }
     this.setState({ showParam: false });
     this.setState({ showParam1: true });
-    this.setState({ ellipsoid: true, cylinder: false });
+    this.setState({ ellipsoid: true, cylinder: false, nozzle: false });
+    this.postRequest(data);
+  }
+
+  sendDataNozzle = () => {
+    this.setState({ showParam: false });
+    const data = {
+      ...this.state.params6,
+      shape: "nozzle"
+    }
+    console.log(data);
+    this.setState({ ellipsoid: false, cylinder: false, nozzle: true });
     this.postRequest(data);
   }
 
@@ -238,6 +277,10 @@ class VesselBuilder extends Component {
 
     // console.log("Rerendered");
     return (<Aux>
+      <Modal show={this.state.showParam && this.state.showNozzle}>
+        <Parameter4 label={"Nozzle"} show={true} finish6={this.sendDataNozzle} submitParams={this.submitParamsHandler6} cancelParams={this.cancelParamsHandler} />
+
+      </Modal>
       <Modal show={this.state.showParam && this.state.showEllipsoid}>
         <Parameter1 label={"Ellipsoidal Head"} show={this.state.showParam1} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler} />
         <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} finish1={this.sendDataEllipsoid} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625} />
@@ -253,7 +296,7 @@ class VesselBuilder extends Component {
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt} />
       </Modal1>
       <Toolbar resetThenSet={this.resetThenSet} />
-      <ThreeScene num={this.state.params4.n} showC={this.state.cylinder} showE={this.state.ellipsoid} />
+      <ThreeScene num={this.state.params4.n} showC={this.state.cylinder} showE={this.state.ellipsoid} showN={this.state.nozzle} data ={this.state.params6}/>
 
     </Aux>);
   }
