@@ -136,11 +136,25 @@ class ThreeScene extends Component {
       this.nozzle.translateY(1);
 
 
+      
+
+      this.geometry = new THREE.RingGeometry(0.3, 0.5, 32);
+      this.material = new THREE.MeshBasicMaterial({ color: 0x296789, side: THREE.DoubleSide });
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.mesh.translateOnAxis(new THREE.Vector3(0, 1, 0), nextProps.data.distance);
+      this.mesh.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), (nextProps.data.angle) * (3.14 / 180));
+      console.log(nextProps.data.length);
+      const length = nextProps.data.length + 0.5;
+      console.log(length);
+      this.mesh.translateZ(1.5);
+
       if (nextProps.data.position == 'offset') {
         this.nozzle.translateX(nextProps.data.offset);
+        this.mesh.translateX(nextProps.data.offset);
       }
 
       this.scene.add(this.nozzle);
+      this.scene.add(this.mesh);
     }
     if (nextProps.showE && this.state.show1) {
       this.setState({ show1: false });
@@ -175,7 +189,7 @@ class ThreeScene extends Component {
           this.material = new THREE.MeshPhongMaterial({ color: '#9982EE', emissive: 0x072534, side: THREE.DoubleSide })
           this.cylinder = new THREE.Mesh(this.geometry, this.material);
           this.cylinder.translateY(tranY - 1);
-          this.scene.add(this.cylinder); 
+          this.scene.add(this.cylinder);
         }
         if (this.state.first) {
           this.setState({ first: false });

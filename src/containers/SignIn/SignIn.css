@@ -1,11 +1,15 @@
+.LoginForm {
+  display: block;
+}
 .Login {
-  padding-bottom : 20px;
+  margin-bottom: 10px;
+  display: block;
 }
 
 
 @media all and (min-width: 480px) {
     .Login {
-      padding: 60px 0;
+      padding: 0px 0;
     }
   
     .Login form {

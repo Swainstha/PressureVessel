@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
   render() {
     return (
       // <form onSubmit={(e) => this.handle_login(e)}>
-      <div >
+      <div className={classes.LoginForm}>
       <form onSubmit={(e) => this.props.handle_login(e, this.state)}>
         <h4>Log In</h4>
         <div className={classes.Login}>

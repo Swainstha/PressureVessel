@@ -11,7 +11,7 @@ class App extends Component {
       password: ""
     },
     token: '',
-    show: false
+    show: true
   }
 
   loginHandler = (e, event) => {
