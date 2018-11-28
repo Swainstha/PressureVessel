@@ -14,6 +14,7 @@ class Parameter3 extends Component {
     state = {
         params: {
             position: 'radial',
+            offset: 0.0,
             distance: 0,
             angle: 0,
             length: 0,
@@ -93,6 +94,11 @@ class Parameter3 extends Component {
                         <div className={classes.Input}>
                             <input type="radio" name="position" value="radial" checked={this.state.params.position === 'radial'} onChange={this.inputHandler} />Radial<br />
                             <input type="radio" name="position" value="offset" checked={this.state.params.position === 'offset'} onChange={this.inputHandler} />Offset<br />
+                        </div>
+                        <div className={classes.Input}>
+                            <label className={classes.Label}>Offset</label>
+                            <input name="offset" type="number" placeholder="0.0" className={classes.InputElement}
+                                onChange={this.inputHandler} />
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Length</label>

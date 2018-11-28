@@ -147,7 +147,8 @@ class ThreeScene extends Component {
       this.material = new THREE.MeshPhongMaterial({ color: '#296789', emissive: 0x072534, side: THREE.DoubleSide });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
       this.sphere.rotateX(3.14);
-      this.sphere.translateY(-this.state.transY - 1 - 0.51);
+      //this.sphere.translateY(-this.state.transY - 1 - 0.51);
+      this.sphere.translateY(- 0.51);
       this.scene.add(this.sphere);
     }
     if (nextProps.showE && !this.state.show1) {
@@ -157,7 +158,7 @@ class ThreeScene extends Component {
       this.geometry = new THREE.SphereGeometry(1.125, 64, 64, 0, 6.3, 0, 1.1);
       this.material = new THREE.MeshPhongMaterial({ color: '#296789', emissive: 0x072534, side: THREE.DoubleSide });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
-      this.sphere.translateY(1.49);
+      this.sphere.translateY(this.state.transY - 1.5);
       this.scene.add(this.sphere);
 
     }
@@ -170,10 +171,8 @@ class ThreeScene extends Component {
         this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
         this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba', emissive: 0x072534, side: THREE.DoubleSide })
         this.cylinder = new THREE.Mesh(this.geometry, this.material)
-        this.cylinder.translateY(tranY);
-
-
-        tranY = tranY - 2;
+        this.cylinder.translateY(tranY);1
+        tranY = tranY + 2;
         console.log(tranY);
         this.scene.add(this.cylinder)
       }

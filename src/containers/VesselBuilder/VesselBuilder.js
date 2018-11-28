@@ -115,6 +115,7 @@ class VesselBuilder extends Component {
     },
     params6: {
       position: 'radial',
+      offset: 0.0,
       distance: 0,
       angle: 0,
       length: 0,
@@ -146,10 +147,10 @@ class VesselBuilder extends Component {
 
     var headers = {
       'Content-Type': 'application/json',
-      'JWT': this.state.token 
+      'Authorization': 'JWT ' + this.state.token 
   }
   console.log(this.state.token);
-    axios.post("/api/data/", data, {header: headers}).then(response => {
+    axios.post("/api/data/", data, {headers: headers}).then(response => {
       console.log(response);
       // console.log(response);
     });
