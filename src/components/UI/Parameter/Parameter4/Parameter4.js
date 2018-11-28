@@ -98,7 +98,7 @@ class Parameter3 extends Component {
                         <div className={classes.Input}>
                             <label className={classes.Label}>Offset</label>
                             <input name="offset" type="number" placeholder="0.0" className={classes.InputElement}
-                                onChange={this.inputHandler} />
+                                onChange={this.inputHandler} /> -0.3 to 0.3
                         </div>
                         <div className={classes.Input}>
                             <label className={classes.Label}>Length</label>

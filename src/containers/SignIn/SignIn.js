@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from '../../axios';
-
+import classes from './SignIn.css';
 class LoginForm extends React.Component {
   state = {
     username: '',
@@ -31,8 +31,10 @@ class LoginForm extends React.Component {
   render() {
     return (
       // <form onSubmit={(e) => this.handle_login(e)}>
+      <div >
       <form onSubmit={(e) => this.props.handle_login(e, this.state)}>
         <h4>Log In</h4>
+        <div className={classes.Login}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -40,6 +42,8 @@ class LoginForm extends React.Component {
           value={this.state.username}
           onChange={this.handle_change}
         />
+        </div>
+        <div className={classes.Login}>
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -47,8 +51,10 @@ class LoginForm extends React.Component {
           value={this.state.password}
           onChange={this.handle_change}
         />
+        </div>
         <input type="submit" />
       </form>
+      </div>
     );
   }
 }

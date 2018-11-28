@@ -12,7 +12,8 @@ class ThreeScene extends Component {
     show1: false,
     show2: false,
     addAnother: false,
-    transY: 1
+    transY: 1,
+    first: true
   }
   componentDidMount() {
     const width = this.mount.clientWidth
@@ -167,11 +168,23 @@ class ThreeScene extends Component {
       console.log(this.state.transY);
       //this.setState({ show2: true });
       let tranY = this.state.transY;
+      let add = false;
       for (let i = 0; i < this.props.num; i++) {
+        if (!this.state.first || add) {
+          this.geometry = new THREE.CylinderGeometry(1.01, 1.01, 0.05, 32, 32, true, 0, 6.3)
+          this.material = new THREE.MeshPhongMaterial({ color: '#9982EE', emissive: 0x072534, side: THREE.DoubleSide })
+          this.cylinder = new THREE.Mesh(this.geometry, this.material);
+          this.cylinder.translateY(tranY - 1);
+          this.scene.add(this.cylinder); 
+        }
+        if (this.state.first) {
+          this.setState({ first: false });
+          add = true;
+        }
         this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
         this.material = new THREE.MeshPhongMaterial({ color: '#0b7dba', emissive: 0x072534, side: THREE.DoubleSide })
         this.cylinder = new THREE.Mesh(this.geometry, this.material)
-        this.cylinder.translateY(tranY);1
+        this.cylinder.translateY(tranY);
         tranY = tranY + 2;
         console.log(tranY);
         this.scene.add(this.cylinder)
